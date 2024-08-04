@@ -3,12 +3,13 @@ import math
 
 inf = 1000000000000000000
 
+
 def travel_time(coordinates, i, j, speed):
     x1 = coordinates[i][0]
     y1 = coordinates[i][1]
     x2 = coordinates[j][0]
     y2 = coordinates[j][1]
-    dis = (x2-x1)*(x2-x1)+(y2-y1)*(y2-y1)
+    dis = (x1-x2)*(x1-x2)+(y1-y2)*(y1-y2)
     dis = math.sqrt(dis)
     dis /= speed
     return dis
@@ -52,6 +53,7 @@ def split(coordinates, n, m, speed):
         delimiters.append(k)
         k = P[k, r]
         r -= 1
+    t = V[n-1, m]
     answer = [[0]]
     for i in sequence:
         answer[-1].append(i)
@@ -60,7 +62,29 @@ def split(coordinates, n, m, speed):
             answer[-1].append(0)
             if (len(delimiters) != 0):
                 answer.append([0])
-    return [answer, V[n-1, m]]
+
+    print(t)
+    cost = 0
+
+    def func(a):
+        c = 0
+        for j in range(len(a)-2):
+            c += travel_time(coordinates,
+                             a[j], a[j+1], speed)
+        return c
+
+    for i in range(len(answer)):
+        print("i->", i)
+        a = answer[i]
+        c1 = func(a)
+        a.reverse()
+        c2 = func(a)
+        a.reverse()
+        if c2 < c1:
+            a.reverse()
+        cost = max(cost, min(c1, c2))
+    print("cost", cost)
+    return [answer, cost]
 # append 0 by yourself
 
 
@@ -71,6 +95,7 @@ def mtsp(coordinates, time, speed):
     end = n
     m = -1
     answer = []
+    duration = -1
     while start <= end:
         mid = (start+end)//2
         ans = split(coordinates, n, mid, speed)
@@ -78,6 +103,7 @@ def mtsp(coordinates, time, speed):
             m = mid
             answer = ans[0]
             end = mid-1
+            duration = ans[1]
         else:
             start = mid+1
     temp = []
@@ -86,11 +112,11 @@ def mtsp(coordinates, time, speed):
         for j in range(len(answer[i])):
             temp[-1].append(coordinates[answer[i][j]])
     answer = temp
-    return [m, answer]
+    return [m, answer, duration]
 
 
 # '''
-# input 
+# input
 # 4   n -> no of coordinates
 # 90  time -> limit on time
 # 1 2  coordinates of point 1
@@ -117,22 +143,23 @@ def mtsp(coordinates, time, speed):
 # '''
 
 
-# def main():
-#     n = int(input())
-#     time = int(input())
-#     speed = int(input())
-#     v = []
-#     for i in range(n):
-#         a, b = input().split()
-#         a, b = int(a), int(b)
-#         v.append([a, b])
-#     # d = travel_time(v, 1, 3)
-#     # print(d)
-#     answer = solve(v, time, speed)
-#     print("length->", answer[0])
-#     for i in range(len(answer[1])):
-#         print(answer[1][i])
-#         print("\n")
+def main():
+    n = 4
+    time = 300
+    speed = 1
+    v = [[0, 0], [0, 50], [0, 100], [100, 100], [100, 0]]
+    # for i in range(n):
+    #     a, b = input().split()
+    #     a, b = int(a), int(b)
+    #     v.append([a, b])
+    # d = travel_time(v, 1, 3)
+    # print(d)
+    answer = mtsp(v, time, speed)
+    print("length->", answer[0])
+    print("duration->", answer[2])
+    for i in range(len(answer[1])):
+        print(answer[1][i])
+        print("\n")
 
 
-# main()
+main()

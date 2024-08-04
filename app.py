@@ -8,9 +8,11 @@ from mtsp import mtsp
 app = Flask(__name__)
 CORS(app)
 
+
 @app.route('/docs')
 def hello_world():
     return 'Releasing soon!'
+
 
 @app.route('/solve')
 def solve():
@@ -18,18 +20,21 @@ def solve():
     coordinates = np.array(data['coordinates'])
     time = data['time']
     speed = data['speed']
-    
+
     path = tsp(coordinates)
+    path.insert(0, [0, 0])
 
     answer = mtsp(path, time, speed)
 
     result = {
         'vehicles': answer[0],
         'paths': answer[1],
-        'TSPpath': path
+        'TSPpath': path,
+        'duration': answer[2]
     }
 
     return jsonify(result)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
