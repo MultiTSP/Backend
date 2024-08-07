@@ -143,23 +143,23 @@ def mtsp(coordinates, time, speed):
 # '''
 
 
-def main():
-    n = 4
-    time = 300
-    speed = 1
-    v = [[0, 0], [0, 50], [0, 100], [100, 100], [100, 0]]
-    # for i in range(n):
-    #     a, b = input().split()
-    #     a, b = int(a), int(b)
-    #     v.append([a, b])
-    # d = travel_time(v, 1, 3)
-    # print(d)
-    answer = mtsp(v, time, speed)
-    print("length->", answer[0])
-    print("duration->", answer[2])
-    for i in range(len(answer[1])):
-        print(answer[1][i])
-        print("\n")
+# def main():
+#     n = 4
+#     time = 300
+#     speed = 1
+#     v = [[0, 0], [0, 50], [0, 100], [100, 100], [100, 0]]
+#     # for i in range(n):
+#     #     a, b = input().split()
+#     #     a, b = int(a), int(b)
+#     #     v.append([a, b])
+#     # d = travel_time(v, 1, 3)
+#     # print(d)
+#     answer = mtsp(v, time, speed)
+#     print("length->", answer[0])
+#     print("duration->", answer[2])
+#     for i in range(len(answer[1])):
+#         print(answer[1][i])
+#         print("\n")
 
 
-main()
+# main()
