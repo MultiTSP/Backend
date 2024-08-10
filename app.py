@@ -14,7 +14,7 @@ def hello_world():
     return 'Releasing soon!'
 
 
-@app.route('/solve')
+@app.route('/solve', methods=['POST'])
 def solve():
     data = request.json
     coordinates = np.array(data['coordinates'])
