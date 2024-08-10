@@ -89,7 +89,7 @@ def tour_optimization(tour, distance_matrix):
 
 def tsp(coordinates):
     """Solves the TSP problem using the Double-Tree Short Cutting and 2-Opt Heuristic Algorithm."""
-    coordinates = np.array([[0, 0]] + coordinates)
+    coordinates = np.array([[0, 0]] + list(coordinates))
     distance_matrix = create_distance_matrix(coordinates)
     optimal_tour = construct_tour(distance_matrix)
     optimized_tour = tour_optimization(optimal_tour, distance_matrix)

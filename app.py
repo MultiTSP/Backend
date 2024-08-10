@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/docs')
+@app.route('/')
 def hello_world():
     return 'Releasing soon!'
 
@@ -22,7 +22,6 @@ def solve():
     speed = data['speed']
 
     path = tsp(coordinates)
-    path.insert(0, [0, 0])
 
     answer = mtsp(path, time, speed)
 
